@@ -16,7 +16,7 @@ spec:
         image: public.ecr.aws/g5i1d7r1/navya114:latest
         ports:
         - containerPort: 8080
-        volumeMount: 
+        volumeMounts: 
           - name: volume-pv
             mountPath: /usr/local/tomcat/
       volumes: 
