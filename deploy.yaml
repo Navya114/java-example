@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multistage
+spec:
+  selector:
+    matchLabels:
+      app: multistage
+  template:
+    metadata:
+      labels:
+        app: multistage
+    spec:
+      containers:
+      - name: multistage
+        image: public.ecr.aws/g5i1d7r1/navya114:latest
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: regcred
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: multistage
+spec:
+  type: NodePort
+  selector:
+    app: multistage
+  ports:
+  - port: 8080
+    targetPort: 8080
