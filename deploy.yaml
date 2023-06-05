@@ -16,7 +16,14 @@ spec:
         image: public.ecr.aws/g5i1d7r1/navya114:latest
         ports:
         - containerPort: 8080
-      imagePullSecrets:
+        volumeMount: 
+          - name: volume-pv
+            mountPath: /usr/local/tomcat/
+      volumes: 
+        - name: volume-pv
+          persistentVolumeClaim:
+            claimName: multistage-pv-pvc
+      imagePullSecrets:      
       - name: regcred
 
 ---
@@ -32,3 +39,32 @@ spec:
   ports:
   - port: 8080
     targetPort: 8080
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: multistage-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: static
+  hostPath:
+    path: /data/multistage
+
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: multistage-pv-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: static
+  resources:
+    requests:
+      storage: 1Gi
