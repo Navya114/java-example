@@ -55,7 +55,6 @@ spec:
   hostPath:
     path: /opt/multistage
 
-
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
