@@ -16,13 +16,13 @@ spec:
         image: public.ecr.aws/g5i1d7r1/navya114:latest
         ports:
         - containerPort: 8080
-        volumeMounts: 
-        - name: volume-pv
-          mountPath: /usr/local/tomcat/webapps
-      volumes: 
-      - name: volume-pv
-        persistentVolumeClaim:
-          claimName: multistage-pvc
+#        volumeMounts: 
+#       - name: volume-pv
+#          mountPath: /usr/local/tomcat/webapps
+#     volumes: 
+#     - name: volume-pv
+#       persistentVolumeClaim:
+#         claimName: multistage-pvc
       imagePullSecrets:      
       - name: regcred
 
